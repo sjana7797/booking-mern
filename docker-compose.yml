@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  nodeapp:
+    container_name: booking-backend
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    environment:
+       MONGO_URI: mongodb://mongodb:27017/booking
+       JWT_SECRET_KEY: e2JL0lGKrsbpqn3Lq6PFLAO51HO6E5cE
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    volumes:
+      - ~/mongo:/data/db
+    ports:
+      - "27017:27017"
